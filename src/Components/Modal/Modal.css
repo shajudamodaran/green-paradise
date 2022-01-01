@@ -1,0 +1,139 @@
+
+.modal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+   background-color: #10182349;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+   
+}
+
+
+.modal-loader{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+   background-color: #1018233d;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+   
+}
+
+
+.modal-body{
+    background-color: white;
+    max-width: 95%;
+    border-radius: 15px;
+    padding: 1rem;
+    color: black;
+    z-index: 102;
+
+    animation: zoomin .2s ease-in;
+
+    min-height: 90%;
+    min-width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+
+.modal-content{
+    padding: .5rem .5rem;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(73, 73, 73);
+
+    background-color: red;
+}
+
+.modal-buttons{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: .8rem;
+
+}
+
+.modal-cancel-btn{
+
+    background-color: white;
+    padding: .5rem 1rem;
+    margin: 0px 5px;
+    border: 0px;
+    font-size: 13px;
+    letter-spacing: .03rem;
+    border-radius: 4px;
+    color: rgb(129, 129, 129);
+
+    min-width: 80px;
+
+    cursor: pointer;
+
+    border: .5px solid rgb(238, 238, 238);
+    min-width: 130px;
+
+    margin-right: 1rem;
+}
+
+.modal-ok-btn{
+
+    padding: .5rem  1rem;
+    border: 0px;
+    font-size: 13px;
+    background-color: #101823;
+    border-radius: 4px;
+    color: white;
+    letter-spacing: .03rem;
+    min-width: 80px;
+    cursor: pointer;
+
+    min-width: 130px;
+
+  
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .container{
+       
+    }
+   
+  }
+
+
+  @keyframes zoomin {
+    0%   {transform: scale(0);}
+    100% {transform: scale(1);}
+  }
+
+  @keyframes zoomout {
+    0%   {transform: scale(1);}
+    100% {transform: scale(0);}
+  }
+

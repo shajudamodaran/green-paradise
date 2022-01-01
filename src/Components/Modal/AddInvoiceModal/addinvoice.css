@@ -1,0 +1,326 @@
+.add-invoice-header{
+
+    width: 100%;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 1rem .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-invoice-date-header{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.add-invoice-tittle{
+
+    font-size: 1.2rem;
+    font-family: roboto;
+    font-weight: 500;
+    letter-spacing: .5px;
+    margin-top: 1rem;
+}
+
+.add-invoice-body{
+
+    width: 100%;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding-bottom: 1rem;
+
+    overflow: auto;
+}
+
+.add-invoice-buttons{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-top: .8rem;
+
+}
+
+.add-invoice-buttons button{
+
+    background-color: #005DFF;
+    color:white;
+    outline: 0;
+    border: 0;
+    padding: .4rem 1.2rem;
+    border-radius: 3px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition-duration: .5s;
+
+    font-family: roboto;
+    font-size: 12px;
+
+
+
+}
+
+.add-invoice-buttons button:hover{
+
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.add-invoice-table{
+    width: 100%;
+    margin-top: 1.5rem;
+
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+.add-invoice-table tr td{
+    background-color: rgb(248, 248, 248);
+    padding: .5rem;
+    font-family: roboto;
+    font-size: 13px;
+
+}
+
+.add-invoice-table tr th {
+    text-align: center;
+}
+
+
+.add-invoice-table tr td :nth-child(1){
+    width: 50px;
+   
+}
+
+.add-invoice-table tr :nth-child(2){
+    
+    text-align: start;
+}
+
+.add-invoice-table tr :nth-child(3){
+    
+    text-align: center;
+    width: 80px;
+}
+
+.add-invoice-table tr :nth-child(4){
+    
+    text-align: center;
+    width: 80px;
+}
+
+.add-invoice-table tr :nth-child(5){
+    
+    text-align: center;
+    width: 80px;
+}
+
+.add-invoice-table tr :nth-child(6){
+    
+    text-align: start;
+}
+
+.add-invoice-table tr :nth-child(7){
+    
+    text-align: center;
+    width: 60px;
+    vertical-align: middle;
+}
+
+.add-invoice-table tr:not(:nth-child(1)){
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+.add-invoice-table  tr :first-child{
+   
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.add-invoice-table  tr :last-child{
+   
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+
+.sub-total-container{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+}
+
+.sub-total{
+
+    width: auto;
+    min-width: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid rgb(221, 221, 221);
+
+    font-size: 13.8px;
+    color: rgb(58, 58, 58);
+
+}
+
+.calculation-table{
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+    font-family:roboto ;
+}
+
+.calculation-table tr .add-discount{
+
+    color: #005DFF;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+
+
+.calculation-table tr :nth-child(4){
+    text-align: end;
+}
+
+
+.calculation-table tr :nth-child(1){
+
+  
+width: 50px;
+}
+
+
+.add-invoice-footer{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-invoice-actions{
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: fit-content;
+    height: 100%;
+
+
+
+}
+
+.add-invoice-actions button{
+
+    min-width: 200px;
+    padding: .7rem 1rem;
+    margin-bottom: .5rem;
+    border: 0px;
+    border-radius: 5px;
+    font-family: roboto;
+    font-weight: 500;
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+   
+}
+
+.save-print-button{
+    background-color: #F45E6D;
+}
+
+.save-button{
+    background-color: #25B9B9;
+}
+
+.print-button{
+    background-color: #F78645;
+}
+
+.close-button{
+    background-color: #D62F2F;
+}
+
+textarea {
+    resize: none;
+  }
+
+
+  .add-invoice-table-text-area{
+    outline:0px !important;
+    padding: .7rem;
+    border-radius:4px ;
+    border: 0px;
+    
+    font-family: roboto;
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+
+  
+}
+
+.add-invoice-table .ant-input{
+    border: none;
+    border-bottom: 1px solid white !important;
+    box-shadow: none;
+}
+
+.flex-right{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:flex-end;
+ 
+
+}
+
+
+.flex-row{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:flex-end;
+ 
+
+}

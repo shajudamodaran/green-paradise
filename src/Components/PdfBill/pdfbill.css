@@ -1,0 +1,326 @@
+
+@page {
+    size: A4;
+    margin: 0;
+  }
+  @media print {
+    html, body {
+      width: 210mm;
+      height: 297mm;
+    }
+    /* ... the rest of the rules ... */
+  }
+
+.pdf-bill-container{
+    height: 297mm;
+    width: 210mm;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:2rem;
+
+    border: 1px solid rgb(184, 184, 184);
+    
+}
+
+.pdf-bill-container-inner{
+    height: 100%;
+    width: 100%;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+
+    border: 1px solid rgb(184, 184, 184);
+    border-radius: 5px;
+    
+}
+
+.bill-hearer{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    border-bottom: 1px solid rgb(219, 219, 219);
+    padding-bottom: 1rem;
+ 
+}
+
+.bill-body{
+    flex:1;
+    margin: 1rem 0rem;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 13px;
+
+
+}
+
+
+.bill-footer{
+
+    width: 100%;
+    border-top: 1px solid rgb(202, 202, 202);
+    padding-top: 1rem;
+
+    font-size: 12px;
+    text-align: center;
+    color: rgb(136, 136, 136);
+  
+}
+
+.bill-header-tittle{
+    font-family: roboto;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.bill-header-caption{
+
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 13px;
+
+}
+
+.bill-from-address{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.from-logo{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.bill-body-header{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: .5rem;
+
+
+}
+
+.bill-body-to{
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 0px .5rem;
+
+
+}
+
+.bill-body-to-tittle{
+
+    font-family: roboto;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(114, 114, 114);
+    letter-spacing:.5px;
+
+}
+
+.invoice-name-tittle{
+
+    font-family: roboto;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    letter-spacing: 1px;
+
+}
+
+.bill-body-invoice-number{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #005DFF;
+    padding: .5rem;
+    margin-top: 0rem;
+    color: white;
+    border-radius: 3px;
+  
+
+}
+
+.bill-table-container{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 250px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+
+}
+
+.bill-table{
+
+    width: 100%;
+    margin-top: .0rem;
+    height: fit-content;
+   
+   
+}
+
+
+
+.bill-table th{
+    text-align: right;
+    height: 50px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.bill-table td{
+    text-align: right;
+    height: 50px;
+   
+}
+
+.bill-table tr:first-child {
+  
+  
+  }
+
+.bill-table tr :nth-child(1){
+
+    width: 50px;
+    text-align: center;
+    
+}
+
+.bill-table tr :nth-child(2){
+
+text-align: start;
+
+}
+
+.bill-table tr :nth-child(3){
+
+    text-align: center;
+    
+    }
+
+    .bill-table tr :nth-child(4){
+
+        text-align: center;
+        
+        }
+.sub-total-table-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subtotal-table{
+
+    margin-top: .8rem;
+
+}
+
+.subtotal-table :last-child td{
+    border-top: 1px solid rgb(221, 221, 221);
+
+    font-weight: 500;
+    font-family: roboto;
+    font-size: 15px;
+}
+
+.subtotal-table tr :nth-child(2){
+    width: 100px;
+}
+
+.subtotal-table td{
+
+    height: 40px;
+   
+}
+
+.sub-total-heading-row{
+  font-weight: 500;
+  font-family: roboto;
+    
+    
+}
+
+.netTotal-container{
+    flex: 1;
+   
+    height: 100%;
+    margin-top: .8rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    letter-spacing: .5px;
+}
+
+.invoice-total-box{
+
+    border: 1px solid rgb(216, 216, 216);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bill-logo{
+   
+    width: 150px;
+}
+        
+
+.print-source {
+    display: none;
+    background-color: red;
+  }
+  
+  body > .print-source {
+    display: block;
+  }
+  
+  @media print {
+    .print-source {
+      display: block;
+      background-color: green;
+    }
+  }

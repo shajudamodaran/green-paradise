@@ -1,0 +1,23 @@
+.statusbadge-container-pending{
+
+    border-radius: 100px;
+    padding: .5rem ;
+    background-color: #fffcee;
+    width: fit-content;
+  
+    color: #e6b821;
+    border: 1px solid #e6b821;
+    font-size: 12px;
+}
+
+.statusbadge-container-completed{
+
+    border-radius: 100px;
+    padding: .5rem ;
+    background-color: #EAFEF6;
+    width: fit-content;
+    color:#078f5b;
+  
+    border: 1px solid #078f5b;
+    font-size: 12px;
+}
