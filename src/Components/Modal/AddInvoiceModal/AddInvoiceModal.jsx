@@ -4,10 +4,10 @@ import '../../Modal/Modal.css'
 import './addinvoice.css'
 import moment from 'moment'
 
-import { Select } from 'antd';
+import { Select, notification } from 'antd';
 import { AddClient, CloseIcon, DeleteIcon, PrintIcon, SaveIcon, SavePrintIcon } from '../../../Assets/Icons/Icons';
 import { dummyInvoice } from '../../../Firebase/Config';
-import { api, GET_METHORD } from '../../../API/methords';
+import { api, GET_METHORD, POST_METHORD } from '../../../API/methords';
 import { calculateDiscountPrice, calculateNetTotal, calculateSubTotal } from '../../../Helpers/calculations';
 import { dummyClients } from '../../../Constants/constants';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
@@ -18,6 +18,9 @@ import logo2 from '../../../Assets/Images/Green paradise/logo2.png'
 import logo3 from '../../../Assets/Images/Green paradise/logo3.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { addClientRedux, fetchRecipes, setClientsRedux } from '../../../Redux/Slice/clienSlice'
+import { addInvoiceRedux, getInvoiceListRedux } from '../../../Redux/Slice/invoiceSlice'
+import Loader from '../../Loader/Loader'
+import { setLoaderRedux } from '../../../Redux/Slice/loaderSlice'
 
 const { Option } = Select;
 
@@ -32,6 +35,7 @@ function AddInvoiceModal({ state, setState }) {
     useEffect(() => {
 
         dispatch(fetchRecipes())
+        dispatch(getInvoiceListRedux())
 
     }, [])
 
@@ -47,7 +51,7 @@ function AddInvoiceModal({ state, setState }) {
         }
     ]
 
-    let [localItems, setLocalItems] = useState(items)
+    let [localItems, setLocalItems] = useState([])
     let [discounts, setDiscount] = useState([])
     let [taxes, setTax] = useState([])
     let [addDiscount, setAddDiscount] = useState(false)
@@ -58,9 +62,9 @@ function AddInvoiceModal({ state, setState }) {
     let [netTotal, setNetTotal] = useState(0)
     let [billdate, setBilldate] = useState(null)
     let [billClient, setBillClient] = useState(null)
-
     let [addClient, setAddClient] = useState(false)
     let [clientOnAir, setClientOnAir] = useState({ name: "", address: "" })
+    let [loading, setLoading] = useState(false)
 
     let handleVisibleChange = visible => {
         setAddDiscount({ visible });
@@ -212,10 +216,197 @@ function AddInvoiceModal({ state, setState }) {
         content: () => componentRef.current,
     });
 
+    let handleSaveAndPrint = () => {
+
+        if (billClient == null) {
+
+
+            notification.info({
+                message: 'Please select client',
+                duration: 3,
+                placement: "bottomRight",
+                description:
+                    'The client name was not selected. please select client name inorder to save invoice',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+
+        }
+        else if (localItems.length == 0) {
+            notification.info({
+                message: 'Please add minimum one item',
+                duration: 2.5,
+                placement: "bottomRight",
+                description:
+                    'There is no items added ti invoice. add minimum 1 item to save invoive.',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+        }
+        else if (!billdate) {
+
+            notification.info({
+                message: 'Please select bill date',
+                duration: 2.5,
+                placement: "bottomRight",
+                description:
+                    'The bill date was not selected. please select bill date inorder to save invoice',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+        }
+        else {
+
+            let dataToAdd = {
+                id: "SH1234",
+                client: billClient,
+                isPayd: null,
+                date: billdate,
+                total: netTotal,
+                items: localItems,
+                discounts: discounts,
+                tax: taxes
+            }
+
+
+            dispatch(setLoaderRedux({
+                status: true,
+                message: "Saving invoice..."
+            }))
+
+            api({ Methord: POST_METHORD, Endpoint: "/addInvoice", Body: dataToAdd }).then((res) => {
+
+                console.log(res);
+                dispatch(getInvoiceListRedux())
+
+                dispatch(setLoaderRedux({
+                    status: false,
+                    message: "Saving invoice..."
+                }))
+
+
+                // setState(false)
+                handlePrint()
+
+
+
+            })
+
+
+        }
+
+    }
+
+
+    let saveInvoiceHandle = () => {
+
+        if (billClient == null) {
+
+
+            notification.info({
+                message: 'Please select client',
+                duration: 2.5,
+                placement: "bottomRight",
+                description:
+                    'The client name was not selected. please select client name inorder to save invoice',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+
+        }
+        else if (localItems.length == 0) {
+            notification.info({
+                message: 'Please add minimum one item',
+                duration: 2.5,
+                placement: "bottomRight",
+                description:
+                    'There is no items added ti invoice. add minimum 1 item to save invoive.',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+        }
+        else if (!billdate) {
+
+            notification.info({
+                message: 'Please select bill date',
+                duration: 2.5,
+                placement: "bottomRight",
+                description:
+                    'The bill date was not selected. please select bill date inorder to save invoice',
+                className: 'custom-class',
+                style: {
+                    width: 500,
+                },
+            });
+
+        }
+        else {
+
+            let dataToAdd = {
+                id: "SH1234",
+                client: billClient,
+                isPayd: null,
+                date: billdate,
+                total: netTotal,
+                items: localItems,
+                discounts: discounts,
+                tax: taxes
+            }
+
+
+            dispatch(setLoaderRedux({
+                status: true,
+                message: "Saving invoice..."
+            }))
+
+            api({ Methord: POST_METHORD, Endpoint: "/addInvoice", Body: dataToAdd }).then((res) => {
+
+                console.log(res);
+                dispatch(getInvoiceListRedux())
+
+                dispatch(setLoaderRedux({
+                    status: false,
+                    message: "Saving invoice..."
+                }))
+
+
+                setState(false)
+
+
+
+            })
+
+
+        }
+
+
+
+
+
+
+    }
+
 
 
     return (
         <div>
+
+
 
             <div style={{ display: "none" }}>
                 <div className='pdf-bill-container ' ref={componentRef}>
@@ -439,7 +630,9 @@ function AddInvoiceModal({ state, setState }) {
                                         alignItems: "center"
                                     }}>Client Name &nbsp;
                                         <Select
-                                        allowClear
+
+                                            onChange={(e) => { setBillClient(e) }}
+                                            allowClear
                                             showSearch
                                             optionFilterProp="children"
 
@@ -505,48 +698,60 @@ function AddInvoiceModal({ state, setState }) {
                                 </div>
 
 
-                                <table className="add-invoice-table">
+                                {
+                                    localItems.length > 0 ?
 
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Item</th>
-                                        <th>Qty</th>
-                                        <th>Rate</th>
-                                        <th>Total</th>
-                                        <th>Comment</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <table className="add-invoice-table">
 
-                                    {
-                                        localItems.length > 0 ?
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Item</th>
+                                                <th>Qty</th>
+                                                <th>Rate</th>
+                                                <th>Total</th>
+                                                <th>Comment</th>
+                                                <th>Action</th>
+                                            </tr>
 
-                                            localItems.map((obj, key) => {
-                                                return (
+                                            {
+                                                localItems.length > 0 ?
 
-                                                    <tr key={key}>
-                                                        <td>{key + 1}</td>
-                                                        <td><TextArea value={obj.service} onChange={(e) => { updateData({ id: obj.id, key: "service", value: e.target.value }) }} placeholder='Enter item details' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
-                                                        <td><TextArea value={obj.quantity} onChange={(e) => { updateData({ id: obj.id, key: "quantity", value: e.target.value }) }} placeholder='Qty' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
-                                                        <td><TextArea value={obj.rate} onChange={(e) => { updateData({ id: obj.id, key: "rate", value: e.target.value }) }} placeholder='Rate' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
-                                                        <td><TextArea value={obj.rate && obj.quantity ? obj.rate * obj.quantity : 0} placeholder='Total' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
-                                                        <td><TextArea value={obj.comment} onChange={(e) => { updateData({ id: obj.id, key: "comment", value: e.target.value }) }} placeholder='Comment if any' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
-                                                        <td><div onClick={() => { removeitem({ id: obj.id }) }}><DeleteIcon /></div></td>
+                                                    localItems.map((obj, key) => {
+                                                        return (
 
-                                                    </tr>
+                                                            <tr key={key}>
+                                                                <td>{key + 1}</td>
+                                                                <td><TextArea value={obj.service} onChange={(e) => { updateData({ id: obj.id, key: "service", value: e.target.value }) }} placeholder='Enter item details' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                <td><TextArea value={obj.quantity} onChange={(e) => { updateData({ id: obj.id, key: "quantity", value: e.target.value }) }} placeholder='Qty' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                <td><TextArea value={obj.rate} onChange={(e) => { updateData({ id: obj.id, key: "rate", value: e.target.value }) }} placeholder='Rate' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                <td><TextArea value={obj.rate && obj.quantity ? obj.rate * obj.quantity : 0} placeholder='Total' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                <td><TextArea value={obj.comment} onChange={(e) => { updateData({ id: obj.id, key: "comment", value: e.target.value }) }} placeholder='Comment if any' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                <td><div onClick={() => { removeitem({ id: obj.id }) }}><DeleteIcon /></div></td>
 
-                                                )
-                                            })
+                                                            </tr>
 
-
-                                            : null
-                                    }
-
+                                                        )
+                                                    })
 
 
+                                                    : null
+
+                                            }
 
 
 
-                                </table>
+
+
+
+                                        </table>
+
+                                        :
+
+                                        <div className="no-item-div-container">
+                                            ( No items added to invoice )
+                                        </div>
+                                }
+
 
                             </div>
 
@@ -556,8 +761,8 @@ function AddInvoiceModal({ state, setState }) {
 
 
 
-                                    <button onClick={handlePrint} className='save-print-button'>Save & Print <PrintIcon /></button>
-                                    <button className='save-button'>Save <SaveIcon /></button>
+                                    <button onClick={handleSaveAndPrint} className='save-print-button'>Save & Print <PrintIcon /></button>
+                                    <button onClick={saveInvoiceHandle} className='save-button'>Save <SaveIcon /></button>
                                     <button onClick={() => { setState(false) }} className='close-button'>Close <CloseIcon /></button>
 
                                 </div>

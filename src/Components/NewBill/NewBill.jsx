@@ -1,32 +1,81 @@
 import React, { useEffect, useState } from 'react'
 import './newbill.css'
-import { Input, Select } from 'antd';
+import { Input, Pagination, Select } from 'antd';
 import StatusBadge from '../Statusbadge/StatusBadge';
 import AddInvoiceModal from '../Modal/AddInvoiceModal/AddInvoiceModal';
 import { api, GET_METHORD } from '../../API/methords';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInvoiceListRedux } from '../../Redux/Slice/invoiceSlice';
 
 const { Search } = Input;
 const { Option } = Select;
 
 function NewBill() {
 
+    let { invoiceList } = useSelector((state) => state.invoices)
+
 
     let [addNew, setAddNew] = useState(false)
-    let [invoices,setInvoices]=useState([])
+    let [invoices, setInvoices] = useState([])
+    let [filterString, setFilterString] = useState(null)
+    let [filterStatus, setFilterStatus] = useState(null)
+
+    let filterData = (masterData) => {
+
+        let response = masterData
+
+        if (filterString) {
+            response = masterData.filter(element => element.client.toLowerCase().includes(filterString.toLowerCase()) || element.id.includes(filterString) || element.total.toString().includes(filterString))
+
+        }
+
+        if (filterStatus === "pending") {
+            response = response.filter(element => element.isPayd === null)
+        }
+        else if (filterStatus === "completed") {
+            response = response.filter(element => element.isPayd === true)
+        }
+
+
+        return (response)
+
+    }
+
+
+    let [pagination, setPagination] = useState({
+        totalData: filterData(invoiceList).length,
+        restriction: 5,
+        active: 1
+    })
+
+    const dispatch = useDispatch()
+
+
+
+
+    useEffect(() => {
+
+
+        dispatch(getInvoiceListRedux())
+
+    }, [])
 
     useEffect(() => {
 
         console.log("Calling");
         api({
-            Methord:GET_METHORD,
-            Endpoint:"/invoices"
-        }).then((res)=>{
+            Methord: GET_METHORD,
+            Endpoint: "/invoices"
+        }).then((res) => {
 
-            setInvoices(res?res.data:null)
+            setInvoices(res ? res.data : null)
 
         })
-       
+
     }, [])
+
+
+
 
 
     return (
@@ -39,18 +88,19 @@ function NewBill() {
                 </div>
 
 
-                <button onClick={()=>{setAddNew(true)}}>+ &nbsp; New invoice</button>
+                <button onClick={() => { setAddNew(true) }}>+ &nbsp; New invoice</button>
 
             </div>
 
 
             <div className="new-bill-search">
 
-                <Search placeholder="Enter keyword to search" style={{ width: "80%" }} />
+                <Search value={filterString} onChange={(e) => { setFilterString(e.target.value) }} placeholder="Enter keyword to search" style={{ width: "80%" }} />
 
-                <Select placeholder="Select status" style={{ flex: .9 }} >
-                    <Option value="jack">Completed</Option>
-                    <Option value="lucy">Pending</Option>
+                <Select onChange={e => setFilterStatus(e)} placeholder="Select status" style={{ flex: .9 }} >
+                    <Option value={null}>All</Option>
+                    <Option value="completed">Completed</Option>
+                    <Option value="pending">Pending</Option>
 
                 </Select>
 
@@ -67,29 +117,39 @@ function NewBill() {
                 </tr>
 
                 {
-                    invoices.length>0?
 
-                    invoices.map((obj,key)=>{
-                        return(
+                    invoiceList.length > 0 ?
 
-                            <tr key={key}>
-                            <td>{key+1}</td>
-                            <td>{obj.id}</td>
-                            <td>{obj.date?obj.date:"--"}</td>
-                            <td>{obj.client}</td>
-                            <td>₹ {obj.total}/-</td>
-                            <td><StatusBadge paid={obj.isPayd} /></td>
-                        </tr>
+                        filterData(invoiceList).map((obj, key) => {
 
-                        )
-                    })
+                            if (key + 1 >= (pagination.active * pagination.restriction) - pagination.restriction + 1 && key + 1 <= (pagination.active * pagination.restriction)) {
+                                return (
 
-                    :null
+                                    <tr key={key}>
+                                        <td>{key + 1}</td>
+                                        <td>{obj.id}</td>
+                                        <td>{obj.date ? obj.date : "--"}</td>
+                                        <td>{obj.client}</td>
+                                        <td>₹ {obj.total}/-</td>
+                                        <td><StatusBadge paid={obj.isPayd} /></td>
+                                    </tr>
+
+                                )
+                            }
+
+                        })
+
+                        : null
                 }
 
-               
-               
+
             </table>
+
+            <Pagination
+                defaultCurrent={1}
+                onChange={(e) => { setPagination({ ...pagination, active: e }) }}
+                defaultPageSize={pagination.restriction}
+                total={filterData(invoiceList).length} />
 
 
             <AddInvoiceModal state={addNew} setState={setAddNew} />

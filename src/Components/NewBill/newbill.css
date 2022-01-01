@@ -120,6 +120,10 @@ text-align: end;
   
 }
 
+.new-bill-table tr :nth-child(1){
+    width: 50px;
+}
+
 
 
 .new-bill-table tr th:not(:nth-child(5)):not(:nth-child(6))
