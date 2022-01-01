@@ -14,9 +14,8 @@ function MainRoute() {
     return (
         <Router>
             <Switch>
-                <Route path="/"><Homepage /></Route>
-                {/* <Route path="billing" element={<BillingPage />} />
-            <Route path="billing/printbill" element={<PdfBill/>} /> */}
+                <Route exact path="/"><Homepage /></Route>
+                <Route path="/billing"><BillingPage /></Route>
             </Switch>
         </Router>
     )
