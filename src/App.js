@@ -10,12 +10,12 @@ import store from './Redux/Store/store';
 class App extends Component {
   render() {
     return (
-      
-      <Provider store={store}>
-     <MainRoute>
 
-     </MainRoute>
-     </Provider>
+      <Provider store={store}>
+        <MainRoute>
+
+        </MainRoute>
+      </Provider>
     );
   }
 }
