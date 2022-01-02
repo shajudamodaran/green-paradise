@@ -25,7 +25,7 @@ export function getInvoiceListRedux() {
     return async dispatch => {
 
         api({ Methord: GET_METHORD, Endpoint: "/invoices" }).then((res) => {
-            dispatch(setIncoiceList(res.data))
+            dispatch(setIncoiceList(res.data.reverse()))
         })
     }
 }

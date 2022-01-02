@@ -152,6 +152,56 @@ text-align: end;
     border-bottom-right-radius: 5px;
 }
 
+.pagination-container{
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.new-bill-list-responsive{
+
+    display: none;
+
+}
+
+
+@media only screen and (max-width: 850px) {
+
+    .invoice-heading{
+        display: none;
+    }
+
+    .new-bill-table{
+
+        display: none;
+
+    }
+
+    .pagination-container{
+        display: none;
+
+    }
+
+    .new-bill-list-responsive{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        flex: 1;
+       
+        margin-top: 1rem;
+
+    }
+
+}
+
 
 
 

@@ -1,0 +1,58 @@
+.bill-list-card{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+   
+    border: 1px solid rgb(218, 218, 218);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+
+}
+
+.bill-list-header{
+
+    width: 100%;
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgb(218, 218, 218);
+    padding-bottom: .5rem;
+    padding: .8rem .8rem;
+
+}
+
+.bill-list-header-date{
+    font-family: roboto;
+    font-size: 13.5px;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.bill-list-timeago{
+
+    font-family: roboto;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(180, 180, 180);
+
+}
+
+.bill-list-card-table{
+    width: 100%;
+    border-collapse:separate; 
+  border-spacing: 0 .5rem;
+  padding: .8rem .8rem;
+}

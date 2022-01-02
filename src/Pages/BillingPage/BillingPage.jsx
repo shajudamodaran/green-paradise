@@ -1,38 +1,41 @@
 import React, { useState } from 'react'
-import NewIcon, { LogoutIcon, ReportsIcon } from '../../Assets/Icons/Icons'
+import NewIcon, { LogoutIcon, OptionsIcon, ReportsIcon } from '../../Assets/Icons/Icons'
 import { ManageBillIcon } from '../../Assets/Icons/Icons'
 import NewBill from '../../Components/NewBill/NewBill'
 import './billingpage.css'
 
 function BillingPage() {
 
+
+    let [isLeft, setLeft] = useState(false)
+
     let leftMenus = [
         {
             name: "New Bill",
             icon: <NewIcon />,
-            element:<NewBill/>
+            element: <NewBill />
         },
         {
             name: "Manage Bill",
             icon: <ManageBillIcon />,
-            element:null
+            element: null
         },
         {
             name: "Reports",
             icon: <ReportsIcon />,
-            element:null
+            element: null
         }
 
     ]
     let [activeLeft, setActiveLeft] = useState(leftMenus[0])
 
 
-    
+
 
     return (
         <div className="bill-page-container">
 
-            <div className="left-nav">
+            <div className={`left-nav ${isLeft ? 'left-nav-respo' : 'left-nav-respo-hidden'}`}>
 
                 <div className="company-logo-container">
                     Logo
@@ -63,11 +66,12 @@ function BillingPage() {
 
             </div>
 
-
             <div className="right-content">
                 <div className="content-header">
                     <span className='content-tittle'>
-                        {activeLeft.name}
+                        <div className="nav-controller">
+                            <OptionsIcon/>
+                        </div> {activeLeft.name}
                     </span>
 
 

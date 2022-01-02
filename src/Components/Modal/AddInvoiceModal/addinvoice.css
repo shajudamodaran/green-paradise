@@ -2,7 +2,7 @@
 
     width: 100%;
   border-bottom: 1px solid rgb(221, 221, 221);
-  padding: 1rem .5rem;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,22 +26,29 @@
     font-weight: 500;
     letter-spacing: .5px;
     margin-top: 1rem;
+
+    border-top: 1px solid rgb(221, 221, 221);
+    width: 100%;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    text-align: center;
 }
 
 .add-invoice-body{
 
     width: 100%;
-    margin-top: 1rem;
+    margin-top:.5rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 
     border-bottom: 1px solid rgb(221, 221, 221);
     padding-bottom: 1rem;
 
     overflow: auto;
+   flex: 1;
 }
 
 .add-invoice-buttons{
@@ -345,4 +352,137 @@ textarea {
 
 
     color: #b9b9b9;
+}
+
+
+.add-inoice-body-responsive{
+
+    display: none;
+  
+
+}
+
+@media only screen and (max-width: 850px) {
+
+    .add-invoice-date-header{
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content:center;
+    }
+    .responsive-client-name-select{
+        margin-top: 1rem;
+    }
+
+    .responsive{
+        display: none;
+    }
+
+    .add-invoice-footer{
+
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        justify-content:center;
+
+    }
+
+    .sub-total-container {
+
+        margin-top: 0rem;
+
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+    }
+
+ 
+    .add-invoice-actions{
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .add-invoice-actions button{
+        width: 100%;
+       
+    }
+
+    .add-invoice-body{
+
+        display: none;
+       
+    }
+
+
+    .add-inoice-body-responsive{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+
+        margin-top: 1rem;
+        width: 100%;
+
+    }
+
+    .add-invoice-table-responsive{
+        font-size: 13px;
+        width: 95%;
+        padding: .2rem;
+
+    }
+
+    .add-invoice-item-responsive{
+
+        width: 100%;
+        background-color: #fafafa;
+        padding: .8rem;
+        border: 1px solid rgb(223, 223, 223);
+        border-radius: 8px;
+        margin-bottom: .5rem;
+    }
+
+    .add-invoice-item-responsive table{
+
+        width: 100%;
+
+        border-collapse: separate;
+        border-spacing: 0 .5rem;
+    }
+
+    .add-invoice-item-responsive table :nth-child(1){
+        width: 20%;
+    }
+
+    .add-invoice-item-responsive table :nth-child(2){
+        width: 5%;
+    }
+
+    .add-invoice-item-responsive table :nth-child(3){
+        width: 75%;
+    }
+
+    .add-invoice-item-responsive .remove-button{
+
+        width: 100%;
+        background-color: red;
+        outline: 0;
+        border: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: .3rem;
+        border-radius: .2rem;
+        color: white;
+        margin-top: .5rem;
+    }
+
+
 }

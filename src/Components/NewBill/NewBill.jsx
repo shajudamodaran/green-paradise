@@ -6,6 +6,8 @@ import AddInvoiceModal from '../Modal/AddInvoiceModal/AddInvoiceModal';
 import { api, GET_METHORD } from '../../API/methords';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInvoiceListRedux } from '../../Redux/Slice/invoiceSlice';
+import ResponsiveBillListCard from '../ResponsiveBillListCard/ResponsiveBillListCard';
+import moment from 'moment'
 
 const { Search } = Input;
 const { Option } = Select;
@@ -22,7 +24,22 @@ function NewBill() {
 
     let filterData = (masterData) => {
 
-        let response = masterData
+        let response = [...masterData]
+
+       console.log(response);
+
+        if (response.length>0) 
+        {
+            let sorder = response.sort(function(a, b){
+      
+                return a.date - b.date;
+            });
+          
+
+            response = sorder
+
+        }
+
 
         if (filterString) {
             response = masterData.filter(element => element.client.toLowerCase().includes(filterString.toLowerCase()) || element.id.includes(filterString) || element.total.toString().includes(filterString))
@@ -95,7 +112,7 @@ function NewBill() {
 
             <div className="new-bill-search">
 
-                <Search value={filterString} onChange={(e) => { setFilterString(e.target.value) }} placeholder="Enter keyword to search" style={{ width: "80%" }} />
+                <Search value={filterString} onChange={(e) => { setFilterString(e.target.value) }} placeholder="Enter keyword to search" style={{ width: "80%", marginRight: ".5rem" }} />
 
                 <Select onChange={e => setFilterStatus(e)} placeholder="Select status" style={{ flex: .9 }} >
                     <Option value={null}>All</Option>
@@ -128,7 +145,7 @@ function NewBill() {
                                     <tr key={key}>
                                         <td>{key + 1}</td>
                                         <td>{obj.id}</td>
-                                        <td>{obj.date ? obj.date : "--"}</td>
+                                        <td>{obj.date ? moment(obj.date).format("DD MMM YYYY")  : "No date seleced"}</td>
                                         <td>{obj.client}</td>
                                         <td>₹ {obj.total}/-</td>
                                         <td><StatusBadge paid={obj.isPayd} /></td>
@@ -145,11 +162,41 @@ function NewBill() {
 
             </table>
 
-            <Pagination
-                defaultCurrent={1}
-                onChange={(e) => { setPagination({ ...pagination, active: e }) }}
-                defaultPageSize={pagination.restriction}
-                total={filterData(invoiceList).length} />
+            <div className="new-bill-list-responsive">
+
+                {
+
+                    invoiceList.length > 0 ?
+
+                        filterData(invoiceList).map((obj, key) => {
+
+
+                            return (
+
+                                <ResponsiveBillListCard data={obj} key={key} />
+
+                            )
+
+
+                        })
+
+                        : null
+                }
+
+            </div>
+
+            <div className="pagination-container">
+
+
+                <Pagination
+                    defaultCurrent={1}
+                    onChange={(e) => { setPagination({ ...pagination, active: e }) }}
+                    defaultPageSize={pagination.restriction}
+                    total={filterData(invoiceList).length} />
+
+            </div>
+
+
 
 
             <AddInvoiceModal state={addNew} setState={setAddNew} />

@@ -5,7 +5,7 @@ import './addinvoice.css'
 import moment from 'moment'
 
 import { Select, notification } from 'antd';
-import { AddClient, CloseIcon, DeleteIcon, PrintIcon, SaveIcon, SavePrintIcon } from '../../../Assets/Icons/Icons';
+import { AddClient, CloseIcon, DeleteIcon, DeleteIconWhite, PrintIcon, SaveIcon, SavePrintIcon } from '../../../Assets/Icons/Icons';
 import { dummyInvoice } from '../../../Firebase/Config';
 import { api, GET_METHORD, POST_METHORD } from '../../../API/methords';
 import { calculateDiscountPrice, calculateNetTotal, calculateSubTotal } from '../../../Helpers/calculations';
@@ -623,12 +623,24 @@ function AddInvoiceModal({ state, setState }) {
 
                                 <div className="add-invoice-date-header">
 
-                                    <div>Date &nbsp; <DatePicker onChange={(date) => { setBilldate(date) }} /></div>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center"
-                                    }}>Client Name &nbsp;
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "flex-start"
+                                        }}
+                                    ><span className='responsive'>Date  &nbsp; </span><DatePicker inputReadOnly onChange={(date) => { setBilldate(date) }} /></div>
+                                    <div
+                                        className='responsive-client-name-select'
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "flex-start"
+                                        }}>
+
+                                        <span className='responsive'>Client Name &nbsp;</span>
                                         <Select
 
                                             onChange={(e) => { setBillClient(e) }}
@@ -691,11 +703,13 @@ function AddInvoiceModal({ state, setState }) {
 
                             </div>
 
+
+                            <div className="add-invoice-buttons">
+                                <button onClick={addNewItem}>+ &nbsp; Add Items</button>
+                            </div>
+
                             <div className="add-invoice-body">
 
-                                <div className="add-invoice-buttons">
-                                    <button onClick={addNewItem}>+ &nbsp; Add Items</button>
-                                </div>
 
 
                                 {
@@ -754,6 +768,90 @@ function AddInvoiceModal({ state, setState }) {
 
 
                             </div>
+
+                            <dic className="add-inoice-body-responsive">
+
+                                {
+                                    localItems.length > 0 ?
+
+                                        <div className="add-invoice-table-responsive">
+
+
+
+                                            {
+                                                localItems.length > 0 ?
+
+                                                    localItems.map((obj, key) => {
+                                                        return (
+
+                                                            // <tr key={key}>
+                                                            //     <td>{key + 1}</td>
+                                                            //     <td><TextArea value={obj.service} onChange={(e) => { updateData({ id: obj.id, key: "service", value: e.target.value }) }} placeholder='Enter item details' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                            //     <td><TextArea value={obj.quantity} onChange={(e) => { updateData({ id: obj.id, key: "quantity", value: e.target.value }) }} placeholder='Qty' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                            //     <td><TextArea value={obj.rate} onChange={(e) => { updateData({ id: obj.id, key: "rate", value: e.target.value }) }} placeholder='Rate' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                            //     <td><TextArea value={obj.rate && obj.quantity ? obj.rate * obj.quantity : 0} placeholder='Total' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                            //     <td><TextArea value={obj.comment} onChange={(e) => { updateData({ id: obj.id, key: "comment", value: e.target.value }) }} placeholder='Comment if any' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                            //     <td><div onClick={() => { removeitem({ id: obj.id }) }}><DeleteIcon /></div></td>
+
+                                                            // </tr>
+
+                                                            <div className="add-invoice-item-responsive">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>Item</td>
+                                                                        <td>:</td>
+                                                                        <td><TextArea value={obj.service} onChange={(e) => { updateData({ id: obj.id, key: "service", value: e.target.value }) }} placeholder='Enter item details' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Qty</td>
+                                                                        <td>:</td>
+                                                                        <td><TextArea inputmode="numeric" value={obj.quantity} onChange={(e) => { updateData({ id: obj.id, key: "quantity", value: e.target.value }) }} placeholder='Qty' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Rate</td>
+                                                                        <td>:</td>
+                                                                        <td><TextArea inputmode="numeric" value={obj.rate} onChange={(e) => { updateData({ id: obj.id, key: "rate", value: e.target.value }) }} placeholder='Rate' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Total</td>
+                                                                        <td>:</td>
+                                                                        <td><TextArea value={obj.rate && obj.quantity ? obj.rate * obj.quantity : 0} placeholder='Total' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "80px", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>Comment</td>
+                                                                        <td>:</td>
+                                                                        <td><TextArea value={obj.comment} onChange={(e) => { updateData({ id: obj.id, key: "comment", value: e.target.value }) }} placeholder='Comment if any' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
+                                                                    </tr>
+
+                                                
+                                                                </table>
+
+                                                                <button onClick={() => { removeitem({ id: obj.id }) }} className='remove-button'> <DeleteIconWhite /> Remove Item </button>
+                                                            </div>
+
+                                                        )
+                                                    })
+
+
+                                                    : null
+
+                                            }
+
+
+                                        </div>
+
+                                        :
+
+                                        <div className="no-item-div-container">
+                                            ( No items added to invoice )
+                                        </div>
+                                }
+
+                            </dic>
 
                             <div className="add-invoice-footer">
 
