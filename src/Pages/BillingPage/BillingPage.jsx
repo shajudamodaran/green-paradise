@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import NewIcon, { LogoutIcon, OptionsIcon, ReportsIcon } from '../../Assets/Icons/Icons'
+import NewIcon, { CloseIconMedium, LogoutIcon, OptionsIcon, ReportsIcon } from '../../Assets/Icons/Icons'
 import { ManageBillIcon } from '../../Assets/Icons/Icons'
 import NewBill from '../../Components/NewBill/NewBill'
 import './billingpage.css'
+
+import logo1 from '../../Assets/Images/Green paradise/logo1.png'
+import logo2 from '../../Assets/Images/Green paradise/logo2.png'
+import logo3 from '../../Assets/Images/Green paradise/logo3.png'
 
 function BillingPage() {
 
@@ -13,7 +17,7 @@ function BillingPage() {
         {
             name: "New Bill",
             icon: <NewIcon />,
-            element: <NewBill />
+            element: <NewBill state={isLeft} setState={setLeft} />
         },
         {
             name: "Manage Bill",
@@ -35,10 +39,14 @@ function BillingPage() {
     return (
         <div className="bill-page-container">
 
-            <div className={`left-nav ${isLeft ? 'left-nav-respo' : 'left-nav-respo-hidden'}`}>
+            <div className={`left-nav`}>
 
-                <div className="company-logo-container">
-                    Logo
+                <div className="company-logo-container" >
+                    <div className="logo-box">
+
+                        <img src={logo2} alt="" />
+
+                    </div>
                 </div>
 
                 <ul>
@@ -50,7 +58,7 @@ function BillingPage() {
                                 <li
                                     key={key}
                                     className={activeLeft.name === element.name ? 'active' : null}
-                                    onClick={() => { setActiveLeft(element) }}
+                                    onClick={() => { setActiveLeft(element), setLeft(false) }}
                                 >
                                     <div className="nav-icon">
                                         {element.icon}
@@ -66,11 +74,51 @@ function BillingPage() {
 
             </div>
 
-            <div className="right-content">
+            <div className={`${isLeft ? 'left-nav-respo' : ' left-nav-respo-hidden'}`}>
+
+                <div className="close-icon-container-left-nav" onClick={() => { setLeft(false) }}>
+                    <CloseIconMedium />
+                </div>
+
+
+                <div className="company-logo-container" >
+                    <div className="logo-box">
+
+                        <img src={logo2} alt="" />
+
+                    </div>
+                </div>
+
+                <ul className='sidenav-ul'>
+
+                    {
+                        leftMenus.map((element, key) => {
+                            return (
+
+                                <li
+                                    key={key}
+                                    className={activeLeft.name === element.name ? 'active' : null}
+                                    onClick={() => { setActiveLeft(element), setLeft(false) }}
+                                >
+                                    <div className="nav-icon">
+                                        {element.icon}
+                                    </div>
+                                    {element.name}
+                                </li>
+
+                            )
+                        })
+                    }
+
+                </ul>
+
+            </div>
+
+            <div className={`right-content`}>
                 <div className="content-header">
-                    <span className='content-tittle'>
+                    <span className='content-tittle' onClick={() => { setLeft(!isLeft) }}>
                         <div className="nav-controller">
-                            <OptionsIcon/>
+                            <OptionsIcon />
                         </div> {activeLeft.name}
                     </span>
 

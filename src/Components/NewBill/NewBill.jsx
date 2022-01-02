@@ -12,7 +12,7 @@ import moment from 'moment'
 const { Search } = Input;
 const { Option } = Select;
 
-function NewBill() {
+function NewBill({state,setState}) {
 
     let { invoiceList } = useSelector((state) => state.invoices)
 
