@@ -1,0 +1,79 @@
+.manage-bill-table{
+
+    width: 100%;
+    margin-top: 1.5rem;
+    border-collapse: separate;
+  border-spacing: 0 .6rem;
+
+
+}
+
+
+
+.manage-bill-table tr:not(:nth-child(1)){
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+.manage-bill-table tr th{
+height: 2rem;
+padding: .8rem;
+text-align: end;
+}
+
+
+.manage-bill-table tr td
+{
+    height: 3.5rem;
+    background-color: white;
+    padding: .8rem;
+    text-align: end;
+    font-family: roboto;
+    font-size: 13.7px;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    text-align: end;
+  
+}
+
+.manage-bill-table tr :nth-child(1){
+   text-align: end;
+}
+
+.manage-bill-table tr :nth-child(7){
+    width: 50px;
+}
+
+
+
+.manage-bill-table tr th:not(:nth-child(5)):not(:nth-child(6))
+{
+
+    text-align: start;
+  
+}
+
+.manage-bill-table tr td:not(:nth-child(5)):not(:nth-child(6))
+{
+
+    text-align: start;
+  
+}
+
+.manage-bill-table tr :first-child{
+   
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.manage-bill-table tr :last-child{
+   
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+@media only screen and (max-width: 850px) {
+
+    .manage-bill-table{
+        display: none;
+    }
+}

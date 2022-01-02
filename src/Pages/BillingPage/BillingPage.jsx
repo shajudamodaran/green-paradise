@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import NewIcon, { CloseIconMedium, LogoutIcon, OptionsIcon, ReportsIcon } from '../../Assets/Icons/Icons'
 import { ManageBillIcon } from '../../Assets/Icons/Icons'
 import NewBill from '../../Components/NewBill/NewBill'
@@ -7,6 +7,9 @@ import './billingpage.css'
 import logo1 from '../../Assets/Images/Green paradise/logo1.png'
 import logo2 from '../../Assets/Images/Green paradise/logo2.png'
 import logo3 from '../../Assets/Images/Green paradise/logo3.png'
+import ManageBill from '../../Components/ManageBill/ManageBill'
+import ManageBillRoute from '../../Routes/ManageBillRoute'
+import { useHistory } from 'react-router-dom'
 
 function BillingPage() {
 
@@ -17,12 +20,14 @@ function BillingPage() {
         {
             name: "New Bill",
             icon: <NewIcon />,
-            element: <NewBill state={isLeft} setState={setLeft} />
+            element: <NewBill/>,
+
         },
         {
             name: "Manage Bill",
             icon: <ManageBillIcon />,
-            element: null
+            element: <ManageBillRoute/>,
+          
         },
         {
             name: "Reports",
@@ -32,6 +37,15 @@ function BillingPage() {
 
     ]
     let [activeLeft, setActiveLeft] = useState(leftMenus[0])
+
+    const history = useHistory();
+
+
+    const onClickSetPath = useCallback(() => {
+        const to = `/billing/`
+        history.push(to)
+    },[history])
+
 
 
 
@@ -58,7 +72,7 @@ function BillingPage() {
                                 <li
                                     key={key}
                                     className={activeLeft.name === element.name ? 'active' : null}
-                                    onClick={() => { setActiveLeft(element), setLeft(false) }}
+                                    onClick={() => { onClickSetPath(), setActiveLeft(element), setLeft(false)  }}
                                 >
                                     <div className="nav-icon">
                                         {element.icon}

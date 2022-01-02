@@ -21,6 +21,7 @@ import { addClientRedux, fetchRecipes, setClientsRedux } from '../../../Redux/Sl
 import { addInvoiceRedux, getInvoiceListRedux } from '../../../Redux/Slice/invoiceSlice'
 import Loader from '../../Loader/Loader'
 import { setLoaderRedux } from '../../../Redux/Slice/loaderSlice'
+import { generateInvoiceId } from '../../../Helpers/invoiceIdGenerator'
 
 const { Option } = Select;
 
@@ -31,6 +32,7 @@ function AddInvoiceModal({ state, setState }) {
 
     let dispatch = useDispatch()
     let { clientsList } = useSelector((state) => state.clients)
+    let { invoiceList } = useSelector((state) => state.invoices)
 
     useEffect(() => {
 
@@ -65,6 +67,7 @@ function AddInvoiceModal({ state, setState }) {
     let [addClient, setAddClient] = useState(false)
     let [clientOnAir, setClientOnAir] = useState({ name: "", address: "" })
     let [loading, setLoading] = useState(false)
+    let [invoiceIdToPtint,setInvoiceIdToPrint]=useState(null)
 
     let handleVisibleChange = visible => {
         setAddDiscount({ visible });
@@ -267,7 +270,7 @@ function AddInvoiceModal({ state, setState }) {
         else {
 
             let dataToAdd = {
-                id: "SH1234",
+                id: generateInvoiceId(invoiceList.length),
                 client: billClient,
                 isPayd: null,
                 date: billdate,
@@ -283,6 +286,8 @@ function AddInvoiceModal({ state, setState }) {
                 message: "Saving invoice..."
             }))
 
+            setInvoiceIdToPrint(generateInvoiceId(invoiceList.length))
+
             api({ Methord: POST_METHORD, Endpoint: "/addInvoice", Body: dataToAdd }).then((res) => {
 
                 console.log(res);
@@ -296,6 +301,8 @@ function AddInvoiceModal({ state, setState }) {
 
                 // setState(false)
                 handlePrint()
+                setState(false)
+                setLocalItems([])
 
 
 
@@ -358,7 +365,7 @@ function AddInvoiceModal({ state, setState }) {
         else {
 
             let dataToAdd = {
-                id: "SH1234",
+                id: generateInvoiceId(invoiceList.length),
                 client: billClient,
                 isPayd: null,
                 date: billdate,
@@ -376,15 +383,15 @@ function AddInvoiceModal({ state, setState }) {
 
             api({ Methord: POST_METHORD, Endpoint: "/addInvoice", Body: dataToAdd }).then((res) => {
 
-                console.log(res);
+               
                 dispatch(getInvoiceListRedux())
-
                 dispatch(setLoaderRedux({
                     status: false,
                     message: "Saving invoice..."
                 }))
 
 
+                setLocalItems([])
                 setState(false)
 
 
@@ -475,7 +482,7 @@ function AddInvoiceModal({ state, setState }) {
                 </div> */}
 
                             <div className="bill-body-invoice-number">
-                                <div className='invoice-name-tittle'>INVOICE - #SH123</div>
+                                <div className='invoice-name-tittle'>INVOICE - #{invoiceIdToPtint}</div>
                             </div>
 
 
@@ -699,7 +706,7 @@ function AddInvoiceModal({ state, setState }) {
 
                                 </div>
 
-                                <span className='add-invoice-tittle'>INVOICE - #SH123</span>
+                                <span className='add-invoice-tittle'>INVOICE - #{generateInvoiceId(invoiceList.length)}</span>
 
                             </div>
 
@@ -769,7 +776,7 @@ function AddInvoiceModal({ state, setState }) {
 
                             </div>
 
-                            <dic className="add-inoice-body-responsive">
+                            <div className="add-inoice-body-responsive">
 
                                 {
                                     localItems.length > 0 ?
@@ -851,7 +858,7 @@ function AddInvoiceModal({ state, setState }) {
                                         </div>
                                 }
 
-                            </dic>
+                            </div>
 
                             <div className="add-invoice-footer">
 

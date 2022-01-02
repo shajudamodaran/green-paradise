@@ -7,6 +7,7 @@ export const invoiceSlice = createSlice({
     name: 'Invoices',
     initialState: {
         invoiceList: [],
+        selectedInvoice:null
     },
 
     reducers: {
@@ -14,6 +15,11 @@ export const invoiceSlice = createSlice({
         setIncoiceList: (state, action) => {
 
             state.invoiceList = action.payload
+        },
+
+        setSelectedInvoice: (state, action) => {
+
+            state.selectedInvoice = action.payload
         },
 
     },
@@ -56,13 +62,37 @@ export function addInvoiceRedux(invoice_data) {
 }
 
 
+export function updateInvoiceListRedux(invoice_data) {
+    return async dispatch => {
+
+        dispatch(setLoaderRedux({
+            status:true,
+            message:"Updating invoice..."
+        }))
+
+        api({ Methord: POST_METHORD, Endpoint: "/updateInvoice", Body: invoice_data }).then((res) => {
+
+            console.log(res);
+            dispatch(getInvoiceListRedux())
+
+            dispatch(setLoaderRedux({
+                status:false,
+            }))
+
+
+
+        })
+    }
+}
+
+
 
 
 //.....................................................................................................
 
 
 
-export const { setIncoiceList } = invoiceSlice.actions
+export const { setIncoiceList,setSelectedInvoice } = invoiceSlice.actions
 
 export default invoiceSlice.reducer
 

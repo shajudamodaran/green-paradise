@@ -1,0 +1,47 @@
+.update-invoice-container{
+
+    width: 100%;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    height: 85vh;
+}
+
+.back-to-manage{
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.d-flex-flex-center{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+}
+
+.manage-invoice-header{
+
+    width: 100%;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 1.5rem;
+
+}
+
