@@ -389,7 +389,10 @@ function UpdateInvoiceModal() {
 
                                 <div className="netTotal-container">
 
-                                    <div>" Thankyou for your business. "</div>
+{
+    isInvoice? <div>" Thankyou for your business. "</div>:null
+}
+                                   
 
 
                                 </div>
@@ -464,7 +467,7 @@ function UpdateInvoiceModal() {
 
 
                                     <tr >
-                                        <td>Invoice total</td>
+                                        <td>{isInvoice?"Invoice":"Quotation"} total</td>
                                         <td></td>
                                         <td>₹ {netTotal}</td>
                                     </tr>
