@@ -63,11 +63,11 @@ function AddInvoiceModal({ state, setState }) {
     let [subTotal, setSubTotal] = useState(0)
     let [netTotal, setNetTotal] = useState(0)
     let [billdate, setBilldate] = useState(null)
-    let [billClient, setBillClient] = useState(null)
+    let [billClient, setBillClient] = useState(0)
     let [addClient, setAddClient] = useState(false)
     let [clientOnAir, setClientOnAir] = useState({ name: "", address: "" })
     let [loading, setLoading] = useState(false)
-    let [invoiceIdToPtint,setInvoiceIdToPrint]=useState(null)
+    let [invoiceIdToPtint, setInvoiceIdToPrint] = useState(null)
 
     let handleVisibleChange = visible => {
         setAddDiscount({ visible });
@@ -383,7 +383,7 @@ function AddInvoiceModal({ state, setState }) {
 
             api({ Methord: POST_METHORD, Endpoint: "/addInvoice", Body: dataToAdd }).then((res) => {
 
-               
+
                 dispatch(getInvoiceListRedux())
                 dispatch(setLoaderRedux({
                     status: false,
@@ -426,14 +426,14 @@ function AddInvoiceModal({ state, setState }) {
                             <div className="from-logo">
                                 <img className='bill-logo' src={logo2} alt="" />
                             </div>
-
+                            
                             <div className="bill-from-address">
                                 <span className='bill-header-tittle'>GREEN PARADISE</span>
                                 <span className='bill-header-caption'>
-                                    Dummy Address <br></br>
-                                    Dummy place <br></br>
-                                    Telephone : 1-800-123-4567<br></br>
-                                    Email : info@dummy.com<br></br>
+                                    Erumapetty kariyanoor <br></br>
+                                    Thrissur, Kerala <br></br>
+                                    Mobile : +91 9656535398<br></br>
+                                    Email : greenparadise438@gmail.com<br></br>
                                 </span>
                             </div>
 
@@ -441,7 +441,7 @@ function AddInvoiceModal({ state, setState }) {
                             <div className="bill-body-to">
 
                                 <div className="bill-body-to-tittle">Bill to :</div>
-                                <div className="bill-body-to-caption">IIB Education Pvt. Ltd</div>
+                                <div className="bill-body-to-caption">{clientsList.length>0?clientsList[billClient].address:null}</div>
 
                             </div>
 
@@ -670,7 +670,7 @@ function AddInvoiceModal({ state, setState }) {
 
                                                     clientsList.map((element, key) => {
                                                         return (
-                                                            <Option key={key} value={element.name}>{element.name}</Option>
+                                                            <Option key={key} value={element.id}>{element.name}</Option>
 
                                                         )
                                                     })
@@ -834,7 +834,7 @@ function AddInvoiceModal({ state, setState }) {
                                                                         <td><TextArea value={obj.comment} onChange={(e) => { updateData({ id: obj.id, key: "comment", value: e.target.value }) }} placeholder='Comment if any' autoSize={{ minRows: 1, maxRows: 6 }} style={{ width: "95%", height: "fit-content" }} className='add-invoice-table-text-area' /></td>
                                                                     </tr>
 
-                                                
+
                                                                 </table>
 
                                                                 <button onClick={() => { removeitem({ id: obj.id }) }} className='remove-button'> <DeleteIconWhite /> Remove Item </button>

@@ -16,6 +16,9 @@ import logo1 from '../../../Assets/Images/Green paradise/logo1.png'
 import logo2 from '../../../Assets/Images/Green paradise/logo2.png'
 import logo3 from '../../../Assets/Images/Green paradise/logo3.png'
 
+import { Switch } from 'antd';
+import { INVOICE, QUOTATION } from '../../../Constants/Strings'
+
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -47,6 +50,8 @@ function UpdateInvoiceModal() {
 
     let [filterString, setFilterString] = useState(null)
     let [filterStatus, setFilterStatus] = useState(null)
+
+    let [isInvoice,setIsInvoice]=useState(true)
 
     useEffect(() => {
 
@@ -284,6 +289,7 @@ function UpdateInvoiceModal() {
         content: () => componentRef.current,
     });
 
+    console.log(selectedData);
 
 
 
@@ -305,10 +311,10 @@ function UpdateInvoiceModal() {
                             <div className="bill-from-address">
                                 <span className='bill-header-tittle'>GREEN PARADISE</span>
                                 <span className='bill-header-caption'>
-                                    Dummy Address <br></br>
-                                    Dummy place <br></br>
-                                    Telephone : 1-800-123-4567<br></br>
-                                    Email : info@dummy.com<br></br>
+                                    Erumapetty kariyanoor <br></br>
+                                    Thrissur, Kerala <br></br>
+                                    Mobile : +91 9656535398<br></br>
+                                    greenparadise438@gmail.com<br></br>
                                 </span>
                             </div>
 
@@ -316,11 +322,13 @@ function UpdateInvoiceModal() {
                             <div className="bill-body-to">
 
                                 <div className="bill-body-to-tittle">Bill to :</div>
-                                <div className="bill-body-to-caption">{selectedData.client}</div>
+                                <span className="bill-body-to-caption">{clientsList.length > 0 ? `${clientsList[selectedData.client].name + '\n' + clientsList[selectedData.client].address}` : null}</span>
 
                             </div>
 
-                            <div className="bill-body-to">
+                            <div className="bill-body-date">
+
+                                {console.log(`${clientsList[selectedData.client].name + '\n' + clientsList[selectedData.client].address}`)}
 
                                 <div className="bill-body-to-tittle">Date :</div>
                                 <div className="bill-body-to-caption">{selectedData.date ? moment(selectedData.date).format("DD MMM YYYY") : null}</div>
@@ -336,28 +344,10 @@ function UpdateInvoiceModal() {
 
                         <div className="bill-body">
 
-                            {/* <div className="bill-body-header">
 
-                    <div className="bill-body-to">
-
-                        <div className="bill-body-to-tittle">Bill to :</div>
-                        <div className="bill-body-to-caption">IIB Education Pvt. Ltd</div>
-
-                    </div>
-
-
-
-                    <div className="bill-body-to">
-
-                        <div className="bill-body-to-tittle">Date :</div>
-                        <div className="bill-body-to-caption">02 Jan 2022</div>
-
-                    </div>
-
-                </div> */}
 
                             <div className="bill-body-invoice-number">
-                                <div className='invoice-name-tittle'>INVOICE - #{selectedData.id}</div>
+                                <div className='invoice-name-tittle'>{isInvoice?INVOICE:QUOTATION} - #{selectedData.id}</div>
                             </div>
 
 
@@ -525,7 +515,7 @@ function UpdateInvoiceModal() {
 
                         <span className='responsive'>Client Name &nbsp;</span>
                         <Select
-                            defaultValue={selectedData ? selectedData.client : null}
+                            defaultValue={selectedData ? clientsList.length > 0 ? clientsList[selectedData.client].name : null : null}
                             onChange={(e) => { updateClient(e) }}
                             allowClear
                             showSearch
@@ -581,7 +571,11 @@ function UpdateInvoiceModal() {
                     </div>
 
                 </div>
-                <span className='add-invoice-tittle'>INVOICE - #{selectedData ? selectedData.id : "---"}</span>
+                <span className='add-invoice-tittle'>{isInvoice?INVOICE:QUOTATION}- #{selectedData ? selectedData.id : "---"}</span>
+                <div className='switch-container'>
+                    <Switch defaultChecked onChange={()=>{setIsInvoice(!isInvoice)}} />
+                    <span> ( Switch Invoice or Quotation ) </span>
+                </div>
 
             </div>
 

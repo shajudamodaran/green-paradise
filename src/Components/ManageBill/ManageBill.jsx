@@ -19,6 +19,7 @@ function ManageBill() {
     const dispatch = useDispatch()
 
     let { invoiceList } = useSelector((state) => state.invoices)
+    let { clientsList } = useSelector((state) => state.clients)
 
     let [filterString, setFilterString] = useState(null)
     let [filterStatus, setFilterStatus] = useState(null)
@@ -129,7 +130,7 @@ function ManageBill() {
                                         <td>{key + 1}</td>
                                         <td>{obj.id}</td>
                                         <td>{obj.date ? moment(obj.date).format("DD MMM YYYY") : "No date seleced"}</td>
-                                        <td>{obj.client}</td>
+                                        <td>{clientsList.length>0?clientsList[obj.client].name:null}</td>
                                         <td>₹ {obj.total}/-</td>
                                         <td><StatusBadge paid={obj.isPayd} /></td>
                                        

@@ -45,3 +45,25 @@
 
 }
 
+.bill-body-to-caption{
+    white-space: pre-line;
+}
+
+
+.switch-container{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+
+}
+
+.switch-container span{
+
+    font-size: 13px;
+    color: rgb(129, 129, 129);
+    margin-left: .5rem;
+
+}
